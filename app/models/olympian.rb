@@ -8,6 +8,8 @@ class Olympian < ApplicationRecord
   belongs_to :team
   has_many :sport_olympians
   has_many :sports, through: :sport_olympians
+  has_many :event_olympians
+  has_many :events, through: :event_olympians
 
   enum sex: %w[M F]
 end

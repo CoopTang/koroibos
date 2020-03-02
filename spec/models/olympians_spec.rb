@@ -13,6 +13,8 @@ RSpec.describe Olympian, type: :model do
     it { should belong_to :team }
     it { should have_many :sport_olympians }
     it { should have_many(:sports).through(:sport_olympians) }
+    it { should have_many :event_olympians }
+    it { should have_many(:events).through(:event_olympians) }
   end
 
   describe 'sexes' do
