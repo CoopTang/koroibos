@@ -13,6 +13,33 @@ RSpec.describe Olympian, type: :model do
     it { should belong_to :team }
   end
 
+  describe 'sexes' do
+    it 'M olympian' do
+      team = Team.create(name: 'US')
+      olympian = Olympian.create(
+        name: 'Michael',
+        sex: 0,
+        age: 29,
+        height: 169,
+        weight: 150
+      )
+
+      expect(olympian.sex).to eq('M')
+    end
+    it 'F olympian' do
+      team = Team.create(name: 'US')
+      olympian = Olympian.create(
+        name: 'Katie',
+        sex: 1,
+        age: 26,
+        height: 150,
+        weight: 110
+      )
+
+      expect(olympian.sex).to eq('F')
+    end
+  end
+
   describe 'methods' do
 
   end
