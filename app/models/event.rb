@@ -4,4 +4,5 @@ class Event < ApplicationRecord
   belongs_to :sport
   has_many :event_olympians
   has_many :olympians, through: :event_olympians
+  has_many :medalists
 end

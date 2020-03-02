@@ -9,6 +9,7 @@ RSpec.describe Event, type: :model do
     it { should belong_to :sport }
     it { should have_many :event_olympians }
     it { should have_many(:olympians).through(:event_olympians) }
+    it { should have_many :medalists }
   end
 
   describe 'methods' do

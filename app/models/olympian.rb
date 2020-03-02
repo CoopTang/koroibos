@@ -10,6 +10,7 @@ class Olympian < ApplicationRecord
   has_many :sports, through: :sport_olympians
   has_many :event_olympians
   has_many :events, through: :event_olympians
+  has_many :medalists
 
   enum sex: %w[M F]
 end
