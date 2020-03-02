@@ -6,6 +6,8 @@ class Olympian < ApplicationRecord
   validates_presence_of :weight
 
   belongs_to :team
+  has_many :sport_olympians
+  has_many :sports, through: :sport_olympians
 
   enum sex: %w[M F]
 end
