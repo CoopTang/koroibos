@@ -46,6 +46,69 @@ RSpec.describe Olympian, type: :model do
   end
 
   describe 'methods' do
+    before :each do
+      @us    = Team.create!(name: "US")
+      @spain = Team.create!(name: "Spain")
 
+      @sport = Sport.create!(name: "Pole Vaulting")
+      @swim  = Sport.create!(name: "Swimming")
+      @event = Event.create!(name: "Vauling really high", sport_id: @sport.id)
+
+      @michael = Olympian.create!(
+        name: 'Michael',
+        sex: 0,
+        age: 29,
+        height: 169,
+        weight: 150,
+        team_id: @us.id
+      )
+      @veronica = Olympian.create!(
+        name: 'Veronica',
+        sex: 1,
+        age: 32,
+        height: 160,
+        weight: 110,
+        team_id: @spain.id
+      )
+
+      @michael_sport = SportOlympian.create!(sport_id: @sport.id, olympian_id: @michael.id)
+      @veronica_sport = SportOlympian.create!(sport_id: @sport.id, olympian_id: @veronica.id)
+
+      @michael_event = EventOlympian.create!(event_id: @event.id, olympian_id: @michael.id)
+      @veronica_event = EventOlympian.create!(event_id: @event.id, olympian_id: @veronica.id)
+
+      @medalist = Medalist.create!(event_id: @event.id, olympian_id: @veronica.id, medal: 0)
+    end
+    it '::all_with_medals' do
+      olympians = Olympian.all_with_medals
+      results = { results: olympians.map(&:attributes) }.to_json
+      results = JSON.parse(results, symbolize_names: true)
+      results = results[:results].sort_by { |result| result[:name] }
+
+      expect(results).to be_an(Array)
+      expect(results.length).to eq(2)
+
+      expect(results[0]).to have_key(:name)
+      expect(results[0][:name]).to eq('Michael')
+      expect(results[0]).to have_key(:team)
+      expect(results[0][:team]).to eq('US')
+      expect(results[0]).to have_key(:age)
+      expect(results[0][:age]).to eq(29)
+      expect(results[0]).to have_key(:sport)
+      expect(results[0][:sport]).to eq('Pole Vaulting')
+      expect(results[0]).to have_key(:total_medals_won)
+      expect(results[0][:total_medals_won]).to eq(0)
+
+      expect(results[1]).to have_key(:name)
+      expect(results[1][:name]).to eq('Veronica')
+      expect(results[1]).to have_key(:team)
+      expect(results[1][:team]).to eq('Spain')
+      expect(results[1]).to have_key(:age)
+      expect(results[1][:age]).to eq(32)
+      expect(results[1]).to have_key(:sport)
+      expect(results[1][:sport]).to eq('Pole Vaulting')
+      expect(results[1]).to have_key(:total_medals_won)
+      expect(results[1][:total_medals_won]).to eq(1)
+    end
   end
 end

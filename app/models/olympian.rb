@@ -1,4 +1,6 @@
 class Olympian < ApplicationRecord
+  serialize :preferences, JSON
+
   validates_presence_of :name
   validates_presence_of :sex
   validates_presence_of :age
@@ -13,4 +15,18 @@ class Olympian < ApplicationRecord
   has_many :medalists
 
   enum sex: %w[M F]
+
+  def self.all_with_medals
+    select('
+      olympians.name, 
+      olympians.sex, 
+      olympians.age, 
+      teams.name as team, 
+      sports.name as sport, 
+      COUNT(medalists.*) AS total_medals_won
+    ')
+    .joins(:team, :sports)
+    .left_joins(:medalists)
+    .group('olympians.id, teams.name, sports.name')
+  end
 end
