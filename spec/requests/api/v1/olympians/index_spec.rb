@@ -38,9 +38,11 @@ describe 'Olympians Index:', type: :request do
     it 'I get a JSON response with all olympians in the database', :vcr do
       get '/api/v1/olympians'
 
+      
       response = JSON.parse(@response.body, symbolize_names: true)
       response[:olympians] = response[:olympians].sort_by { |olympian| olympian[:name] }
 
+      expect(@response.status).to eq(200)
       expect(response).to have_key(:olympians)
       expect(response[:olympians]).to be_an(Array)
       expect(response[:olympians].length).to eq(2)
