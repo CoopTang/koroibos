@@ -56,9 +56,9 @@ describe 'Olympians Index:', type: :request do
       expect(response[:olympian_stats][:average_weight]).to have_key(:male_olympians)
       expect(response[:olympian_stats][:average_weight][:male_olympians]).to eq(79.5)
       expect(response[:olympian_stats][:average_weight]).to have_key(:female_olympians)
-      expect(response[:olympian_stats][:average_weight][:female_olympians]).to eq(51)
-      expect(response).to have_key(:average_age)
-      expect(response[:average_age]).to eq(29)
+      expect(response[:olympian_stats][:average_weight][:female_olympians]).to eq(51.0)
+      expect(response[:olympian_stats]).to have_key(:average_age)
+      expect(response[:olympian_stats][:average_age]).to eq(29.0)
     end
   end
 end
