@@ -59,7 +59,7 @@ RSpec.describe Olympian, type: :model do
         sex: 0,
         age: 29,
         height: 169,
-        weight: 150,
+        weight: 68,
         team_id: @us.id
       )
       @veronica = Olympian.create!(
@@ -67,7 +67,7 @@ RSpec.describe Olympian, type: :model do
         sex: 1,
         age: 32,
         height: 160,
-        weight: 110,
+        weight: 50,
         team_id: @spain.id
       )
       @ryan = Olympian.create!(
@@ -75,7 +75,7 @@ RSpec.describe Olympian, type: :model do
         sex: 0,
         age: 29,
         height: 165,
-        weight: 200,
+        weight: 91,
         team_id: @us.id
       )
 
@@ -184,6 +184,25 @@ RSpec.describe Olympian, type: :model do
       expect(results[0][:sport]).to eq('Pole Vaulting')
       expect(results[0]).to have_key(:total_medals_won)
       expect(results[0][:total_medals_won]).to eq(1)
+    end
+
+    it '::stats' do
+      olympians = Olympian.stats
+      results = {
+        total_competing_olympians: olympians[0].attributes["total_competing_olympians"],
+        male_olympians: olympians[0].attributes["male_olympians"].to_f,
+        female_olympians: olympians[0].attributes["female_olympians"].to_f,
+        average_age: olympians[0].attributes["average_age"].to_f
+      }
+
+      expect(results).to have_key(:total_competing_olympians)
+      expect(results[:total_competing_olympians]).to eq(3)
+      expect(results).to have_key(:male_olympians)
+      expect(results[:male_olympians]).to eq(79.5)
+      expect(results).to have_key(:female_olympians)
+      expect(results[:female_olympians]).to eq(50)
+      expect(results).to have_key(:average_age)
+      expect(results[:average_age]).to eq(30)
     end
   end
 end
