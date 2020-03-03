@@ -59,4 +59,13 @@ class Olympian < ApplicationRecord
     .group('olympians.id, teams.name, sports.name')
     .where(age: Olympian.maximum(:age))
   end
+
+  def self.stats
+    select('
+      COUNT(olympians.*) AS total_competing_olympians,
+      AVG(case when olympians.sex = 0 then olympians.weight else null end) AS male_olympians,
+      AVG(case when olympians.sex = 1 then olympians.weight else null end) AS female_olympians,
+      AVG(olympians.age) AS average_age
+    ')
+  end
 end
