@@ -29,4 +29,19 @@ class Olympian < ApplicationRecord
     .left_joins(:medalists)
     .group('olympians.id, teams.name, sports.name')
   end
+
+  def self.youngest
+    select('
+      olympians.name, 
+      olympians.sex, 
+      olympians.age, 
+      teams.name as team, 
+      sports.name as sport, 
+      COUNT(medalists.*) AS total_medals_won
+    ')
+    .joins(:team, :sports)
+    .left_joins(:medalists)
+    .group('olympians.id, teams.name, sports.name')
+    .where(age: Olympian.minimum(:age))
+  end
 end
