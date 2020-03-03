@@ -114,5 +114,14 @@ describe 'Olympians Index:', type: :request do
       expect(response[:olympians][1]).to have_key(:total_medals_won)
       expect(response[:olympians][1][:total_medals_won]).to eq(0)
     end
+    it 'returns an error message if age is not youngest' do
+      get '/api/v1/olympians?age=asdf'
+
+      response = JSON.parse(@response.body, symbolize_names: true)
+      
+      expect(@response.status).to eq(400)
+      expect(response).to have_key(:message)
+      expect(response[:message]).to eq("Age must be 'youngest' or 'oldest'!")
+    end
   end
 end
