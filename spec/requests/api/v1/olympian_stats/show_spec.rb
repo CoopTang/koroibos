@@ -1,7 +1,7 @@
 require 'rails_helper'
 
-describe 'Olympians Index:', type: :request do
-  describe 'When I visit /api/v1/olympians' do
+describe 'Olympians Show:', type: :request do
+  describe 'When I visit /api/v1/olympian_stats' do
     before :each do
       @us    = Team.create!(name: "US")
       @spain = Team.create!(name: "Spain")
