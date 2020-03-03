@@ -24,7 +24,7 @@ class Api::V1::OlympiansController < ApplicationController
     when 'youngest'
       parse_olympians(Olympian.youngest)
     when 'oldest'
-      binding.pry
+      parse_olympians(Olympian.oldest)
     else
       { message: "Age must be 'youngest' or 'oldest'!" } 
     end
