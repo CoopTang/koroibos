@@ -13,10 +13,10 @@ class Api::V1::OlympianStatsController < ApplicationController
         total_competing_olympians: stats['total_competing_olympians'],
         average_weight: {
           unit: 'kg',
-          male_olympians: stats['male_olympians'].to_f,
-          female_olympians: stats['female_olympians'].to_f
+          male_olympians: stats['male_olympians'].to_f.round(2),
+          female_olympians: stats['female_olympians'].to_f.round(2)
         },
-        average_age: stats['average_age'].to_f
+        average_age: stats['average_age'].to_f.round(2)
       }
     }
   end
