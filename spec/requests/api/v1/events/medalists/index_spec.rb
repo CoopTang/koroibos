@@ -76,5 +76,15 @@ describe 'Event Medalists Index:', type: :request do
       expect(response[:medalists][1][:age]).to eq(29)
       expect(response[:medalists][1][:medal]).to eq('Silver')
     end
+
+    it 'I get a JSON response with all events in the database' do
+      get '/api/v1/events/999999/medalists'
+      
+      response = JSON.parse(@response.body, symbolize_names: true)
+
+      expect(@response.status).to eq(404)
+      expect(response).to have_key(:message)
+      expect(response[:message]).to eq("Event with that ID does not exist!")
+    end
   end
 end
