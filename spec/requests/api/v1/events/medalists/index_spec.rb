@@ -45,8 +45,8 @@ describe 'Event Medalists Index:', type: :request do
       @veronica_event = EventOlympian.create!(event_id: @archery_event_1.id, olympian_id: @veronica.id)
       @ryan_event     = EventOlympian.create!(event_id: @badminton_event_1.id, olympian_id: @ryan.id)
 
-      @veronica_medalist = Medalist.create!(event_id: @archery_event_1.id, olympian_id: @veronica.id, medal: 0)
       @michael_medalist  = Medalist.create!(event_id: @archery_event_1.id, olympian_id: @michael.id, medal: 1)
+      @veronica_medalist = Medalist.create!(event_id: @archery_event_1.id, olympian_id: @veronica.id, medal: 0)
       @ryan_medalist     = Medalist.create!(event_id: @badminton_event_1.id, olympian_id: @ryan.id, medal: 2)
     end
 
@@ -57,23 +57,24 @@ describe 'Event Medalists Index:', type: :request do
 
       expect(@response.status).to eq(200)
       expect(response).to have_key(:event)
+      expect(response).to have_key(:medalists)
       expect(response[:event]).to eq("Archery Men's Individual")
-      expect(response[:event][:medalists]).to be_an(Array)
-      expect(response[:event][:medalists].length).to eq(2)
+      expect(response[:medalists]).to be_an(Array)
+      expect(response[:medalists].length).to eq(2)
       
-      expect(response[:event][:medalists][0]).to have_key(:name)
-      expect(response[:event][:medalists][0][:name]).to eq('Veronica')
-      expect(response[:event][:medalists][0]).to have_key(:team)
-      expect(response[:event][:medalists][0][:team]).to eq('Spain')
-      expect(response[:event][:medalists][0]).to have_key(:age)
-      expect(response[:event][:medalists][0][:age]).to eq(32)
-      expect(response[:event][:medalists][0]).to have_key(:medal)
-      expect(response[:event][:medalists][0][:medal]).to eq('Gold')
+      expect(response[:medalists][0]).to have_key(:name)
+      expect(response[:medalists][0][:name]).to eq('Veronica')
+      expect(response[:medalists][0]).to have_key(:team)
+      expect(response[:medalists][0][:team]).to eq('Spain')
+      expect(response[:medalists][0]).to have_key(:age)
+      expect(response[:medalists][0][:age]).to eq(32)
+      expect(response[:medalists][0]).to have_key(:medal)
+      expect(response[:medalists][0][:medal]).to eq('Gold')
 
-      expect(response[:event][:medalists][1][:name]).to eq('Michael')
-      expect(response[:event][:medalists][1][:team]).to eq('US')
-      expect(response[:event][:medalists][1][:age]).to eq(29)
-      expect(response[:event][:medalists][1][:medal]).to eq('Silver')
+      expect(response[:medalists][1][:name]).to eq('Michael')
+      expect(response[:medalists][1][:team]).to eq('US')
+      expect(response[:medalists][1][:age]).to eq(29)
+      expect(response[:medalists][1][:medal]).to eq('Silver')
     end
   end
 end
