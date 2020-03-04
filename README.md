@@ -28,6 +28,11 @@ rake load_olympians_from_csv
 
 To start the server and view the site from the browser locally, start the server with `rails s` . By default, the server runs on http://localhost:3000
 
+**Database Schema**
+
+[Imgur](https://imgur.com/aCt8qpi)
+---
+
 ## API Reference
 
 ### Olympians
