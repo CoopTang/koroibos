@@ -19,7 +19,6 @@ class Olympian < ApplicationRecord
   def self.all_with_medals
     select('
       olympians.name, 
-      olympians.sex, 
       olympians.age, 
       teams.name as team, 
       sports.name as sport, 
@@ -33,7 +32,6 @@ class Olympian < ApplicationRecord
   def self.youngest
     select('
       olympians.name, 
-      olympians.sex, 
       olympians.age, 
       teams.name as team, 
       sports.name as sport, 
@@ -48,7 +46,6 @@ class Olympian < ApplicationRecord
   def self.oldest    
     select('
       olympians.name, 
-      olympians.sex, 
       olympians.age, 
       teams.name as team, 
       sports.name as sport, 
