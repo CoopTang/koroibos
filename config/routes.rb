@@ -4,6 +4,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :olympians, only: :index
       resource :olympian_stats, only: :show
+      resources :events, only: :index
     end
   end
 end
