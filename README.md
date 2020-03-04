@@ -30,7 +30,7 @@ To start the server and view the site from the browser locally, start the server
 
 **Database Schema**
 
-[Imgur](https://imgur.com/aCt8qpi)
+![Imgur](https://i.imgur.com/aCt8qpi.png)
 ---
 
 ## API Reference
