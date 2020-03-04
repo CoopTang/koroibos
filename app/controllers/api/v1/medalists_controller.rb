@@ -1,12 +1,22 @@
 class Api::V1::MedalistsController < ApplicationController
+
   def index
     event = Event.includes(medalists: [olympian: :team])
                  .order('medalists.medal ASC')
                  .find_by(id: params[:event_id])
-    render json: format_payload(event)
+    event ? successful_response(event) : invalid_response
   end
 
   private
+
+  def successful_response(event)
+    render json: format_payload(event)
+  end
+
+  def invalid_response
+    error = { message: "Event with that ID does not exist!" }
+    render json: error, status: 404 
+  end
 
   def format_payload(event)
     payload = {
